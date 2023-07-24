@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
   screenWidth = 0;
 
   @HostListener('window:resize', ['$event'])
-  onResize(_event : Event) {
+  onResize(_event: Event) {
     this.screenWidth = window.innerWidth;
   }
 
@@ -104,15 +104,19 @@ export class AppComponent implements OnInit {
   confirmOrder() {
     // alert("Спасибо за заказ! Мы скоро свяжемся с Вами!");
 
-    this.appService.sendOrder(this.form.value).subscribe({
-      next: (res: any) => {
-        alert(res.message);
-      },
-      error: (err) => {
-        alert(err.error.message);
-      }
-    })
-    this.clearForm();
+    // this.appService.sendOrder(this.form.value).subscribe({
+    //   next: (res: any) => {
+    //     alert(res.message);
+    //   },
+    //   error: (err) => {
+    //     alert(err.error.message);
+    //   }
+    // })
+    // this.clearForm();
+
+    if (!!this.form.value) {
+      this.appService.sendMessage(this.form.value)
+    }
   }
 
   clearForm() {

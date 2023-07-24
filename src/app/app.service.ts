@@ -270,4 +270,20 @@ export class AppService {
     return this.httpClient.get(this.url_2)
   }
 
+  //TG BOT
+  protected token = '6341322653:AAGMe-1tc2XjSgMfmFUr4-F4tpextxolbao';
+  protected chatId = '566817482';
+  protected apiUrl = `https://api.telegram.org/bot${this.token}/sendMessage`;
+
+  sendMessage(message: any) {
+
+    const data = {
+      chat_id: this.chatId,
+      text: `Новый заказ: "${message['order']}"\nНа имя: ${message['name']}\nТелефон для связи: ${message['phone']}.`
+    };
+    this.httpClient.post(this.apiUrl, data)
+      .subscribe(()=> alert(`Бургер ${message['order']} на имя ${message['name']} успешно заказан.`));
+  }
+
 }
+
