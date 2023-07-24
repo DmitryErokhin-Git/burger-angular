@@ -14,13 +14,6 @@ export class AppService {
     return this.httpClient.post('https://testologia.site/burgers-order', data)
   }
 
-  url_1 = 'https://testologia.site/burgers-data'
-  url_2 = 'https://testologia.site/burgers-data?extra=black'
-
-  getOrder() {
-    return this.httpClient.get(this.url_2)
-  }
-
   productsData_1: Products[] = [
     {
       image: './assets/images/Burger-1.png',
@@ -268,5 +261,13 @@ export class AppService {
       "basePrice": 15,
       "grams": 330
     }
-  ]
+  ];
+
+  url_1 = 'https://testologia.site/burgers-data';
+  url_2 = 'https://testologia.site/burgers-data?extra=black';
+
+  getOrder() {
+    return this.httpClient.get(this.url_2)
+  }
+  
 }
