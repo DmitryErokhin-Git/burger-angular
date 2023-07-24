@@ -85,7 +85,8 @@
     </div>
   </section>
 
-  <section #products class="products" [ngStyle]="{width: screenWidth}">
+  <!--  <section #products class="products" [ngStyle]="{width: screenWidth}">-->
+  <section #products class="products">
     <div class="container">
       <div class="common-title">выберите свой бургер</div>
       <div class="products-items">
@@ -150,7 +151,8 @@
                  [class]="{'error': form.get('phone')?.invalid && (form.get('phone')?.dirty || form.get('phone')?.touched)}">
               <input type="text" placeholder="Ваш телефон" formControlName="phone">
             </div>
-            <button #orderButton class="button" (click)="confirmOrder()" [disabled]="form.invalid">Оформить заказ</button>
+            <button #orderButton class="button" (click)="confirmOrder()" [disabled]="form.invalid">Оформить заказ
+            </button>
           </div>
         </form>
       </div>
