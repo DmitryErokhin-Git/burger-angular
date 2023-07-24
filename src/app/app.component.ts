@@ -17,6 +17,7 @@ export interface Products {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
   @ViewChild('orderButton') orderButton!: ElementRef;
   currency = '$';
   productsData: Products[] = [];
@@ -39,12 +40,12 @@ export class AppComponent implements OnInit {
     return this.orientation = window.matchMedia('(orientation: portrait)').matches
   }
 
-  screenWidth = 0;
-
-  @HostListener('window:resize', ['$event'])
-  onResize(_event: Event) {
-    this.screenWidth = window.innerWidth;
-  }
+  // screenWidth = 0;
+  //
+  // @HostListener('window:resize', ['$event'])
+  // onResize(_event: Event) {
+  //   this.screenWidth = window.innerWidth;
+  // }
 
   form = this.formBuilder.group({
       order: ['', Validators.required],
@@ -98,7 +99,6 @@ export class AppComponent implements OnInit {
     this.productsData.forEach((item: any) => {
       item.price = +(item.basePrice * coefficient).toFixed(1);
     })
-
   }
 
   confirmOrder() {
@@ -114,7 +114,7 @@ export class AppComponent implements OnInit {
     // })
     // this.clearForm();
 
-    if (!!this.form.value) {
+    if (this.form.valid) {
       this.appService.sendMessage(this.form.value)
     }
   }
@@ -123,4 +123,5 @@ export class AppComponent implements OnInit {
     this.form.reset();
     this.orderButton.nativeElement.innerText = `Оформить заказ`;
   }
+
 }

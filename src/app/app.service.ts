@@ -10,10 +10,6 @@ export class AppService {
   constructor(private httpClient: HttpClient) {
   }
 
-  sendOrder(data: any) {
-    return this.httpClient.post('https://testologia.site/burgers-order', data)
-  }
-
   productsData_1: Products[] = [
     {
       image: './assets/images/Burger-1.png',
@@ -266,23 +262,33 @@ export class AppService {
   url_1 = 'https://testologia.site/burgers-data';
   url_2 = 'https://testologia.site/burgers-data?extra=black';
 
+  post: any;
+
   getOrder() {
     return this.httpClient.get(this.url_2)
   }
+
+  // sendOrder(data: any) {
+  //   return this.httpClient.post('https://testologia.site/burgers-order', data)
+  // }
 
   //TG BOT
   protected token = '6341322653:AAGMe-1tc2XjSgMfmFUr4-F4tpextxolbao';
   protected chatId = '566817482';
   protected apiUrl = `https://api.telegram.org/bot${this.token}/sendMessage`;
 
-  sendMessage(message: any) {
+  async sendMessage(message: any) {
 
     const data = {
       chat_id: this.chatId,
       text: `Новый заказ: "${message['order']}"\nНа имя: ${message['name']}\nТелефон для связи: ${message['phone']}.`
     };
-    this.httpClient.post(this.apiUrl, data)
-      .subscribe(()=> alert(`Бургер ${message['order']} на имя ${message['name']} успешно заказан.`));
+    try {
+      this.post = await this.httpClient.post(this.apiUrl, data);
+      this.post.subscribe(() => alert(`Бургер ${message['order']} на имя ${message['name']} успешно заказан.`));
+    } catch (err) {
+      console.log(err)
+    }
   }
 
 }
