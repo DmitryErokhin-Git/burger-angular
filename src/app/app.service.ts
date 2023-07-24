@@ -269,5 +269,5 @@ export class AppService {
   getOrder() {
     return this.httpClient.get(this.url_2)
   }
-  
+
 }

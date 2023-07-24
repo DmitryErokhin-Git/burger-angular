@@ -1,4 +1,4 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {AppService} from "./app.service";
 
@@ -16,9 +16,8 @@ export interface Products {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   @ViewChild('orderButton') orderButton!: ElementRef;
-
   currency = '$';
   productsData: Products[] = [];
 
@@ -27,6 +26,24 @@ export class AppComponent {
     private appService: AppService
   ) {
     this.appService.getOrder().subscribe((res: any) => this.productsData = res);
+  }
+
+  ngOnInit(): void {
+    this.getScreenOrientation();
+  }
+
+  orientation = false;
+
+  @HostListener('window:resize', ['$event'])
+  getScreenOrientation(): boolean {
+    return this.orientation = window.matchMedia('(orientation: portrait)').matches
+  }
+
+  screenWidth = 0;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(_event : Event) {
+    this.screenWidth = window.innerWidth;
   }
 
   form = this.formBuilder.group({
