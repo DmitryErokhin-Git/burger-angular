@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Build to gh-pages
 
 on:
   workflow_dispatch:
@@ -22,11 +22,10 @@ jobs:
         run: npm install
 
       - name: Build Application
-        run: npm run build --omit=dev
+        run: npm run build --omit=dev --base-href=/burger-intensive_angular/
 
-      - name: Deploy to GitHub Pages
+      - name: Commit to gh-pages branch
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.MY_GITHUB_TOKEN }}
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: ./dist/burger-intensive_angular/
